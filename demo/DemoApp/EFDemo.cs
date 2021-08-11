@@ -51,13 +51,13 @@ namespace DemoApp
                 db.SaveChanges();
             }
 
-            var wfr = db.WorkflowRules.Include(i => i.Rules).ThenInclude(i => i.Rules).ToArray();
+            var dbWorkFlowRules = db.WorkflowRules.Include(i => i.Rules).ThenInclude(i => i.Rules).ToArray();
 
-            var bre = new RulesEngine.RulesEngine(wfr, null);
+            var businessRulesEngine = new RulesEngine.RulesEngine(dbWorkFlowRules, null);
 
             string discountOffered = "No discount offered.";
 
-            List<RuleResultTree> resultList = bre.ExecuteAllRulesAsync("Discount", inputs).Result;
+            List<RuleResultTree> resultList = businessRulesEngine.ExecuteAllRulesAsync("Discount", inputs).Result;
 
             resultList.OnSuccess((eventName) => {
                 discountOffered = $"Discount offered is {eventName} % over MRP.";

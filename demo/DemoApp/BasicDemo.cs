@@ -36,16 +36,16 @@ namespace DemoApp
 
             workFlowRules.Add(workflowRule);
 
-            var bre = new RulesEngine.RulesEngine(workFlowRules.ToArray(), null);
+            var businessRuleEngine = new RulesEngine.RulesEngine(workFlowRules.ToArray(), null);
 
-            dynamic datas = new ExpandoObject();
-            datas.count = 1;
+            dynamic dataToTest = new ExpandoObject();
+            dataToTest.count = 1;
             var inputs = new dynamic[]
               {
-                    datas
+                    dataToTest
               };
 
-            List<RuleResultTree> resultList = bre.ExecuteAllRulesAsync("Test Workflow Rule 1", inputs).Result;
+            List<RuleResultTree> resultList = businessRuleEngine.ExecuteAllRulesAsync("Test Workflow Rule 1", inputs).Result;
 
             bool outcome = false;
 
